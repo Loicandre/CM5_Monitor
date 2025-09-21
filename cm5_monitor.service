@@ -1,0 +1,16 @@
+
+[Unit]
+Description=Run cm5_monitor at boot with led_ctrl
+DefaultDependencies=no
+WantedBy=basic.target
+#After=network-online.target
+#Wants=network-online.target
+
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/cm5_monitor/cm5_monitor.py
+Restart=on-failure
+
+[Install]
+WantedBy=basic.target
