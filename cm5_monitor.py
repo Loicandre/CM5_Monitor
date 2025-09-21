@@ -2,6 +2,7 @@
 import os
 import time
 import threading
+import signal
 import subprocess
 import psutil
 from datetime import datetime
@@ -19,6 +20,12 @@ error = False
 def log(msg):
     msg
     print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {msg}")
+
+# Detect reboot
+def stop(sig, frame):
+    os.system("/opt/cm5_monitor/leds_ctrl -s r -n x")
+    exit()
+signal.signal(signal.SIGTERM, stop)
 
 # --- Every minutes ---
 def check_every_minutes():
@@ -66,8 +73,6 @@ while True:
     # Internet check
     internet = os.system("ping -c 1 -W 2 8.8.8.8 > /dev/null 2>&1") == 0
     log(f"🌐 Internet: {'Connected' if internet else 'Disconnected'}")
-
-
 
     # Ethernet check
     if os.path.exists(r"/sys/class/net/eth0/carrier"):
