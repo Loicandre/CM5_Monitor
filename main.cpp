@@ -143,7 +143,7 @@ uint32_t arg_get_color(char c) {
 
 int main(int argc, char *argv[])
 {
-    uint32_t gpio=18;
+    uint32_t gpio=6;
     char led_stat_char=0;
     char led_net_char=0;
     uint32_t led_Stat=0;
@@ -173,7 +173,7 @@ int main(int argc, char *argv[])
             printf("Arguments: \n");
             printf("\t-h        \t-help          \t print this help \n");
             printf("\t-v        \t-verbose       \t use verbose to print debug messages and informations \n");
-            printf("\t-g [gpio] \t-gpio   [gpio] \t Change the LED control GPIO number. (default 18)\n");
+            printf("\t-g [gpio] \t-gpio   [gpio] \t Change the LED control GPIO number. (default 6)\n");
             printf("\t-b [1-255]\t-bright [1-255]\t Set the LED brightness. (default 50)\n");
             printf("\t-s [color]\t-stat   [color]\t Set the Status LED color (default Off)\n");
             printf("\t-n [color]\t-net    [color]\t Set the Network LED color (default Off)\n");
@@ -182,7 +182,7 @@ int main(int argc, char *argv[])
             printf("  [w]White, [x]Off, [r]Red, [e]Rose, [m]Magenta, [v]Violet, [b]Blue\n");
             printf("  [a]Azure, [c]Cyan, [s]SpringGreen, [g]Green, [h]YelGreen [y]Yellow, [O]Orange\n");
             printf("\n");
-            printf("Exemple: $ leds_ctrl -s r -n B -g 18\n");
+            printf("Exemple: $ leds_ctrl -s r -n B -g 6\n");
             break;
 
         case 'v':
