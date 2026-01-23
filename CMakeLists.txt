@@ -11,11 +11,14 @@ add_executable(leds_ctrl
 
 
 
-# Automatic includes
+# Automatic includes - but exclude pico directory to avoid conflicts with system headers
 file(GLOB_RECURSE HEADER_DIRS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} include/*)
 foreach(header ${HEADER_DIRS})
     get_filename_component(dir ${header} DIRECTORY)
-    list(APPEND INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/${dir})
+    # Skip the pico directory as it conflicts with system stdlib.h
+    if(NOT dir MATCHES "include/pico")
+        list(APPEND INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/${dir})
+    endif()
 endforeach()
 list(REMOVE_DUPLICATES INCLUDE_DIRS)
 
