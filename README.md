@@ -98,6 +98,7 @@ cd CM5_Monitor
 ### 3. Run the Installation Script
 
 ```bash
+chmod +x install.sh
 sudo ./install.sh
 ```
 
