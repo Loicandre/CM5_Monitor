@@ -52,8 +52,8 @@ This project enables hands-free monitoring of Raspberry Pi Compute Module 5 syst
 | 🟡 **Yellow** | Ethernet Only (No Internet) | Ethernet connected, WiFi disconnected, no Internet |
 | 🟠 **Orange** | Both Connected (No Internet) | Both WiFi and Ethernet connected, but no Internet access |
 | 🔵 **Blue** | WiFi + Internet | WiFi connected with Internet access, Ethernet disconnected |
-| 🟢 **Green** | Ethernet + Internet | Ethernet connected with Internet access (with or without WiFi) |
-| ⚪ **White** | Internet (No Physical Link) | Internet accessible but no physical Ethernet or WiFi carrier detected |
+| 🟢 **Green** | Ethernet + (wifi) + Internet | Ethernet connected with Internet access (with or without WiFi) |
+| ⚪ **White** | Internet (From other Link) | Internet accessible but no physical Ethernet or WiFi carrier detected |
 
 ---
 
@@ -124,26 +124,26 @@ sudo journalctl -u cm5_monitor.service -f
 ```mermaid
 graph TB
     subgraph "System Monitoring"
-        Python[cm5_monitor.py<br/>Python Service]
-        SysFS[/System Interfaces/<br/>- /sys/class/thermal<br/>- /sys/class/net<br/>- /proc/loadavg]
-        PSUtil[psutil Library<br/>Memory & CPU]
-        DMesg[dmesg<br/>Power Events]
+        Python["cm5_monitor.py<br/>Python Service"]
+        SysFS["System Interfaces<br/>thermal | net | loadavg"]
+        PSUtil["psutil Library<br/>Memory & CPU"]
+        DMesg["dmesg<br/>Power Events"]
     end
 
     subgraph "LED Control Layer"
-        LEDCtrl[leds_ctrl<br/>C/C++ Application]
-        PIOLib[PIOlib<br/>Hardware Abstraction]
-        RP1[RP1 PIO Driver<br/>Programmable I/O]
+        LEDCtrl["leds_ctrl<br/>C/C++ Application"]
+        PIOLib["PIOlib<br/>Hardware Abstraction"]
+        RP1["RP1 PIO Driver<br/>Programmable I/O"]
     end
 
     subgraph "Hardware"
-        GPIO[GPIO 6<br/>Default Pin]
-        LED1[LED 1<br/>Status]
-        LED2[LED 2<br/>Network]
+        GPIO["GPIO 6<br/>Default Pin"]
+        LED1["LED 1<br/>Status"]
+        LED2["LED 2<br/>Network"]
     end
 
     subgraph "System Service"
-        SystemD[systemd<br/>cm5_monitor.service]
+        SystemD["systemd<br/>cm5_monitor.service"]
     end
 
     Python -->|Read Metrics| SysFS
